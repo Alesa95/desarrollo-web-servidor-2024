@@ -86,6 +86,7 @@
 
     #   Forma 4 de hacerlo
     
+    /*
     switch($dia) {
         case "Tuesday":
         case "Wednesday":
@@ -96,6 +97,73 @@
             echo "<p>Hoy $dia no hay clases de web servidor</p>";
             break;
     }
+    */
+
+    /*
+        1 - CREAR UN SWITCH QUE SEGÚN EL DÍA EN QUE ESTEMOS, ALMACENE EN
+            UNA VARIABLE EL DÍA EN ESPAÑOL
+
+        2 - REESCRIBIR EL SWITCH DE LA ASIGNATURA CON LOS DÍAS EN 
+            ESPAÑOL
+    */
+
+    $dia_espanol = null;
+
+    switch($dia) {
+        case "Monday":
+            $dia_espanol = "Lunes";
+            break;
+        case "Tuesday":
+            $dia_espanol = "Martes";
+            break;
+        case "Wednesday":
+            $dia_espanol = "Miércoles";
+            break;
+        case "Thursday":
+            $dia_espanol = "Jueves";
+            break;
+        case "Friday":
+            $dia_espanol = "Viernes";
+            break;
+        case "Saturday":
+            $dia_espanol = "Sábado";
+            break;
+        case "Sunday":
+            $dia_espanol = "Domingo";
+            break;
+    }
+
+    /*
+    switch($dia_espanol) {
+        case "Martes":
+        case "Miércoles":
+        case "Viernes":
+            echo "<p>Hoy $dia_espanol sí tenemos clase de web servidor</p>";
+            break;
+        default:
+            echo "<p>Hoy $dia_espanol no tenemos clase de web servidor</p>";
+        }
+    */
+
+    //  ESTRUCTURA MATCH PHP >= 8.0
+
+    /*
+    $resultado = match($dia_espanol) {
+        "Martes" => "<p>Hoy $dia_espanol sí tenemos clase de web servidor</p>",
+        "Miércoles" => "<p>Hoy $dia_espanol sí tenemos clase de web servidor</p>",
+        "Viernes" => "<p>Hoy $dia_espanol sí tenemos clase de web servidor</p>",
+        default => "<p>Hoy $dia_espanol no tenemos clase de web servidor</p>"
+    };
+    */
+
+    $resultado = match($dia_espanol) {
+        "Martes",
+        "Miércoles",
+        "Jueves" => "<p>Hoy $dia_espanol sí tenemos clase de web servidor</p>",
+        default => "<p>Hoy $dia_espanol no tenemos clase de web servidor</p>"
+    };
+
+    echo $resultado;
     ?>
 </body>
 </html>
