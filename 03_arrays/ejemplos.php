@@ -26,6 +26,29 @@
         "Cereza",
     ];
 
+    echo "<h3>Mis frutas con FOR</h3>";
+    echo "<ol>";
+    for($i = 0; $i < count($frutas); $i++) {    //  3N
+        echo "<li>" . $frutas[$i] . "</li>";
+    }
+    echo "</ol>";
+
+    echo "<h3>Mis frutas con WHILE</h3>";
+    echo "<ol>";
+    $i = 0;
+    while($i < count($frutas)) {
+        echo "<li>" . $frutas[$i] . "</li>";    //  3N
+        $i++;
+    }
+    echo "</ol>";
+
+    echo "<h3>Mis frutas con FOREACH</h3>";
+    echo "<ol>";
+    foreach($frutas as $fruta) {
+        echo "<li>$fruta</li>";
+    }
+    echo "</ol>";
+
     array_push($frutas, "Mango", "Melocotón");
     $frutas[] = "Sandía";
     $frutas[7] = "Uva";
@@ -67,6 +90,11 @@
     print_r($personas);
 
     //echo "<p>" . $personas["22331133G"] . "</p>";
+
+    $tamano = count($personas);
+    echo "<h3>$tamano</h3>";
+
+
     ?>
 </body>
 </html>
