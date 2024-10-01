@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ejemplos</title>
+    <link href="estilos.css" rel="stylesheet" type="text/css">
     <?php
         error_reporting( E_ALL );
         ini_set( "display_errors", 1 );
@@ -20,11 +21,44 @@
     //echo $frutas["clave 4"];
     //echo "<br>";
 
+    $numeros1 = [1,2,3,4,5];
+    $numeros2 = ["1","2","3","4","5"];
+
+    if($numeros1 === $numeros2) {
+        echo "<h3>Los arrays de números son iguales</h3>";
+    } else {
+        echo "<h3>Los arrays de números NO iguales</h3>";
+    }
+
     $frutas = [
         "Manzana",
         "Naranja",
         "Cereza",
     ];
+
+    $frutas1 = [
+        "Cereza",
+        "Naranja",
+        "Manzana",
+    ];
+
+    $frutas2 = [
+        0 => "Naranja",
+        1 => "Manzana",
+        2 => "Cereza"
+    ];
+
+    $frutas3 = [
+        1 => "Manzana",
+        0 => "Naranja",
+        2 => "Cereza"
+    ];
+
+    if($frutas3 == $frutas2) {
+        echo "<h3>Los arrays son iguales</h3>";
+    } else {
+        echo "<h3>Los arrays no son iguales</h3>";
+    }
 
     echo "<h3>Mis frutas con FOR</h3>";
     echo "<ol>";
@@ -46,6 +80,13 @@
     echo "<ol>";
     foreach($frutas as $fruta) {
         echo "<li>$fruta</li>";
+    }
+    echo "</ol>";
+
+    echo "<h3>Mis frutas con FOREACH con claves</h3>";
+    echo "<ol>";
+    foreach($frutas as $clave => $fruta) {
+        echo "<li>$clave, $fruta</li>";
     }
     echo "</ol>";
 
@@ -87,7 +128,11 @@
 
     unset($personas[0]);
 
-    print_r($personas);
+    echo "<ul>";
+    foreach($personas as $dni => $nombre) {
+        echo "<li>$dni, $nombre</li>";
+    }
+    echo "</ul>";
 
     //echo "<p>" . $personas["22331133G"] . "</p>";
 
@@ -96,5 +141,71 @@
 
 
     ?>
+    <table>
+        <thead>
+            <tr>
+                <th>DNI</th>
+                <th>Nombre</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            foreach($personas as $dni => $nombre) {
+                echo "<tr>";
+                echo "<td>$dni</td>";
+                echo "<td>$nombre</td>";
+                echo "</tr>";
+            }
+            ?>
+        </tbody>
+    </table>
+    <br><br><br><br>
+    <h1>Tabla buena</h1>
+    <?php
+    $personas["00112211A"] = "Paquito de la Torre";
+    $personas["22110044B"] = "Paco Fiesta";
+    //sort($personas);
+    //rsort($personas);
+    //asort($personas);
+    //arsort($personas);
+    //ksort($personas);
+    krsort($personas);
+    ?>
+    <table>
+        <thead>
+            <tr>
+                <th>DNI</th>
+                <th>Nombre</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            foreach($personas as $dni => $nombre) { ?>
+                <tr>
+                    <td><?php echo $dni ?></td>
+                    <td><?php echo $nombre ?></td>
+                </tr>
+            <?php }
+            ?>
+        </tbody>
+    </table>
+
+    <!--
+                Desarrollo web servidor => Alejandra
+                Desarrollo web cliente => Jaime
+                Diseño de interfaces => José
+                Despliegue de aplicaciones web => Alejandro
+                Empresa e inciativa emprendedora => Gloria
+                Inglés => Virginia
+
+                MOSTRAR EN UNA TABLA LAS ASIGNATURAS Y SUS RESPECTIVOS PROFESORES
+
+                LUEGO:
+
+                MOSTRAR UNA TABLA ADICIONAL ORDENADA POR LA ASIGNATURA EN ORDEN ALFABETICO
+
+                MOSTRAR UNA TABLA ADICIONAL ORDENADA POR LOS PROFESORES EN ORDEN
+                ALFABETICO INVERSO
+    -->
 </body>
 </html>
