@@ -207,5 +207,138 @@
                 MOSTRAR UNA TABLA ADICIONAL ORDENADA POR LOS PROFESORES EN ORDEN
                 ALFABETICO INVERSO
     -->
+    <?php
+    $asignaturas = array(
+        "Desarrollo web servidor" => "Alejandra",
+        "Desarrollo web cliente" => "Jaime",
+        "Diseño de interfaces" => "José",
+        "Despliegue de aplicaciones web" => "Alejandro",
+        "Empresa e inciativa emprendedora" => "Gloria",
+        "Inglés" => "Virginia",
+    );
+    ?>
+    <br><br>
+    <table>
+        <thead>
+            <tr>
+                <th>Asignatura</th>
+                <th>Docente</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            foreach($asignaturas as $asignatura => $docente) {
+                echo "<tr>";
+                echo "<td>$asignatura</td>";
+                echo "<td>$docente</td>";
+                echo "</tr>";
+            }
+            ?>
+        </tbody>
+    </table>
+
+    <br><br><br>
+
+    <table>
+        <caption>Ordenada por asignatura alfabéticamente</caption>
+        <thead>
+            <tr>
+                <th>Asignatura</th>
+                <th>Docente</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            ksort($asignaturas);
+            foreach($asignaturas as $asignatura => $docente) { ?>
+                <tr>
+                    <td><?php echo $asignatura ?></td>
+                    <td><?php echo $docente ?></td>
+                </tr>
+            <?php }
+            ?>
+        </tbody>
+    </table>
+
+    <table>
+        <caption>Ordenada por docente alfabéticamente inverso</caption>
+        <thead>
+            <tr>
+                <th>Asignatura</th>
+                <th>Docente</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            arsort($asignaturas);
+            foreach($asignaturas as $asignatura => $docente) { ?>
+                <tr>
+                    <td><?php echo $asignatura ?></td>
+                    <td><?php echo $docente ?></td>
+                </tr>
+            <?php }
+            ?>
+        </tbody>
+    </table>
+
+    <!--
+                Guillermo => 3      SUSPENSO
+                Daiana => 5         APROBADO
+                Ángel => 8          APROBADO
+                Ayyoub => 7         APROBADO
+                Mateo => 9          APROBADO
+                Joaquín => 4        SUSPENSO
+
+                DESPUES
+
+                SI NOTA < 5 -> SUSPENSO
+                SI NOTA < 7 -> APROBADO
+                SI NOTA < 9 -> NOTABLE
+                SI NOTA <= 10 -> SOBRESALIENTE
+
+                ¡Y ADEMAS!  SI EL ALUMNO HA APROBADO, QUE SU FILA ESTÉ VERDE
+                            SI EL ALUMNO HA SUSPENDIDO, QUE SU FILA ESTÉ ROJA
+
+
+    -->
+
+    <?php
+    $estudiantes = [
+        "Guillermo" => 3,   
+        "Daiana" => 5,
+        "Ángel" => 8,
+        "Ayyoub" => 7,     
+        "Mateo" => 9,  
+        "Joaquín" => 4        
+    ];
+    ?>
+    <table>
+        <caption>Estudiantes</caption>
+        <thead>
+            <tr>
+                <th>Estudiante</th>
+                <th>Nota</th>
+                <th>Calificación</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            asort($estudiantes);
+            krsort($estudiantes);
+            foreach($estudiantes as $estudiante => $nota) { ?>
+                <?php 
+                if($nota < 5) echo "<tr class='suspenso'>"; 
+                if($nota >= 5) echo "<tr class='aprobado'>"; 
+                ?>
+                    <td><?php echo $estudiante ?></td>
+                    <td><?php echo $nota ?></td>
+                    <?php
+                    if($nota < 5) echo "<td>Suspenso</td>";
+                    if($nota >= 5) echo "<td>Aprobado</td>"; 
+                    ?>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
 </body>
 </html>
