@@ -16,5 +16,23 @@
         ...
         3 x 10 = 30
     -->
+
+    <form action="" method="post">
+        <label for="numero">Número</label>
+        <input type="text" name="numero" id="numero" 
+            placeholder="Introduce un número">
+        <br><br>
+        <input type="submit" value="Generar tabla de multiplicar">
+    </form>
+
+    <?php
+    if($_SERVER["REQUEST_METHOD"] == "POST") {
+        $numero = (int)$_POST["numero"];
+
+        for($i = 1; $i <= 10; $i++) {
+            echo "<p>$numero x $i = " . $numero*$i . "</p>";
+        }
+    }
+    ?>
 </body>
 </html>
