@@ -46,37 +46,70 @@
             $tmp_exponente = $_POST["exponente"];  
 
             //  Validación de la base
+            /*
             if($tmp_base != '') {
-                if(is_numeric($tmp_base)) {
-                    if($tmp_base > 0) {
+                if(filter_var($tmp_base, FILTER_VALIDATE_INT) !== FALSE) {
+                    if($tmp_base >= 0) {
                         $base = $tmp_base;
                     } else {
                         echo "<p>La base debe ser mayor que 0</p>";
                     }
                 } else {
-                    echo "<p>La base debe ser un número</p>";
+                    echo "<p>La base debe ser un número entero</p>";
                 }
             } else {
                 echo "<p>La base es obligatoria</p>";
             }
+            */
+
+            if($tmp_base == '') {
+                echo "<p>La base es obligatoria</p>";
+            } else {
+                if(filter_var($tmp_base, FILTER_VALIDATE_INT) === FALSE) {
+                    echo "<p>La base debe ser un número entero</p>";
+                } else {
+                    if($tmp_base < 0) {
+                        echo "<p>La base debe ser mayor que 0</p>";
+                    } else {
+                        $base = $tmp_base;
+                    }
+                }
+            }
 
             //  Validación del exponente
+            /*
             if($tmp_exponente != '') {
-                if(is_numeric($tmp_exponente)) {
-                    if($tmp_exponente > 0) {
+                if(filter_var($tmp_exponente, FILTER_VALIDATE_INT) !== FALSE) {
+                    if($tmp_exponente >= 0) {
                         $exponente = $tmp_exponente;
                     } else {
-                        echo "<p><El exponente debe ser mayor que 0</p>";
+                        echo "<p>El exponente debe ser mayor que 0</p>";
                     }
                 } else {
-                    echo "<p>El exponente debe ser un número</p>";
+                    echo "<p>El exponente debe ser un número entero</p>";
                 }
             } else {
                 echo "<p>El exponente es obligatorio</p>";
+            }
+            */
+
+            if($tmp_exponente == '') {
+                echo "<p>El exponente es obligatorio</p>";
+            } else {
+                if(filter_var($tmp_exponente, FILTER_VALIDATE_INT) === FALSE) {
+                    echo "<p>El exponente debe ser un número entero</p>";
+                } else {
+                    if($tmp_exponente < 0) {
+                        echo "<p>El exponente debe ser mayor que 0</p>";
+                    } else {
+                        $exponente = $tmp_exponente;
+                    }
+                }
             }            
 
             if(isset($base) && isset($exponente)) {
                 $resultado = calcularPotencia($base, $exponente);
+                echo "<h1>$resultado</h1>";
             }
         }
     }
