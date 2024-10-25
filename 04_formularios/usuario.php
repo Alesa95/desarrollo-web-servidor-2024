@@ -75,6 +75,24 @@
                 }
             }
         }
+
+        /**
+         * No se podrá haber nacido hace más de 120 años
+         */
+
+        //echo "<h1>$tmp_fecha_nacimiento</h1>";
+        //  [0-9]{4}\-[0-9]{2}\-[0-9]{2}
+        if($tmp_fecha_nacimiento == '') {
+            $err_fecha_nacimiento = "La fecha de nacimiento es obligatoria";
+        } else {
+            $patron = "/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}$/";
+            if(!preg_match($patron,$tmp_fecha_nacimiento)) {
+                $err_fecha_nacimiento = "El formato de la fecha es incorrecto";
+            } else {
+                $fecha_actual = date("Y-m-d");  //  2024 25 10
+                list($anno_actual,$mes_actual,$dia_actual) = explode('-',$fecha_actual);
+            }
+        }
     }
     ?>
     <form action="" method="post">
@@ -88,7 +106,9 @@
         <?php if(isset($err_apellidos)) echo "<span class='error'>$err_apellidos</span>"; ?>
         <br><br>
         <label>Fecha de nacimiento</label><br>
-        <input type="date" name="fecha_nacimiento" placeholder><br><br>
+        <input type="date" name="fecha_nacimiento" placeholder>
+        <?php if(isset($err_fecha_nacimiento)) echo "<span class='error'>$err_fecha_nacimiento</span>"; ?>
+        <br><br>
         <input type="submit" value="Registrarse">
     </form>
 </body>
