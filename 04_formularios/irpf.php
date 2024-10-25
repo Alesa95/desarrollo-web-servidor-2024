@@ -12,6 +12,10 @@
     </form>
     <?php
     if($_SERVER["REQUEST_METHOD"] == "POST") {
+        // crear una funcion que devuelva el salario neto
+        // validar los datos antes de enviarlos a la funcion
+
+
         $salario = $_POST["salario"];
 
         $salario_final = null;

@@ -21,6 +21,8 @@
         $desde = $_POST["desde"];
         $hasta = $_POST["hasta"];
     
+        //  el numero menor debera ser 2 o mas
+        //  el otro debe ser superior al primero
         echo "<ul>";
         for($i = $desde; $i <= $hasta; $i++) {
             $esPrimo = TRUE;
