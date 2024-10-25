@@ -16,7 +16,8 @@
 <?php
     if($_SERVER["REQUEST_METHOD"] == "POST") {
         $tmp_precio = $_POST["precio"];
-        $tmp_iva = $_POST["iva"];
+        if(isset($_POST["iva"])) $tmp_iva = $_POST["iva"];
+        else $tmp_iva = "";
 
         if($tmp_precio == '') {
             $err_precio = "El precio es obligatorio";
@@ -34,6 +35,13 @@
 
         if($tmp_iva == '') {
             $err_iva = "El tipo de IVA es obligatorio";
+        } else {
+            $ivas_validos = ["general","reducido","superreducido"];
+            if(!in_array($tmp_iva, $ivas_validos)) {
+                $err_iva = "El tipo de IVA no es válido";
+            } else {
+                $iva = $tmp_iva;
+            }
         }
 
     }
@@ -50,6 +58,7 @@
         <br><br>
         <label for="iva">IVA</label>
         <select name="iva" id="iva">
+            <option disabled selected hidden>--- ELIGE TIPO IVA ---</option>
             <option value="general">General</option>
             <option value="reducido">Reducido</option>
             <option value="superreducido">Superreducido</option>
@@ -58,5 +67,11 @@
         <br><br>
         <input type="submit" value="Calcular PVP">
     </form>
+    <?php
+    if(isset($iva) && isset($precio)) {
+        $pvp = calcularPVP($precio, $iva);
+        echo "<h2>$pvp</h2>";
+    }
+    ?>
 </body>
 </html>
