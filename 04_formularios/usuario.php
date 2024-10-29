@@ -16,6 +16,57 @@
         $tmp_nombre = $_POST["nombre"];
         $tmp_apellidos = $_POST["apellidos"];
         $tmp_fecha_nacimiento = $_POST["fecha_nacimiento"];
+        $tmp_dni = $_POST["dni"];
+
+        /**
+         * 8 digitos y una letra
+         */
+        if($tmp_dni == '') {
+            $err_dni = "El DNI es obligatorio";
+        } else {
+            $tmp_dni = strtoupper($tmp_dni);
+            $patron = "/^[0-9]{8}[A-Z]$/";
+            if(!preg_match($patron,$tmp_dni)) {
+                $err_dni = "El DNI tiene que tener 8 dígitos y una letra";
+            } else {
+                $numero_dni = (int)substr($tmp_dni,0,8);
+                $letra_dni = substr($tmp_dni,8,1);
+                echo "<h1>$numero_dni $letra_dni</h1>";
+
+                $resto_dni = $numero_dni % 23;
+
+                $letra_correcta = match($resto_dni) {
+                    0 => "T",
+                    1 => "R",
+                    2 => "W",
+                    3 => "A",
+                    4 => "G",
+                    5 => "M",
+                    6 => "Y",
+                    7 => "F",
+                    8 => "P",
+                    9 => "D",
+                    10 => "X",
+                    11 => "B",
+                    12 => "N",
+                    13 => "J",
+                    14 => "Z",
+                    15 => "S",
+                    16 => "Q",
+                    17 => "V",
+                    18 => "H",
+                    19 => "L",
+                    20 => "C",
+                    21 => "K",
+                    22 => "E"
+                };
+                if($letra_dni != $letra_correcta) {
+                    $err_dni = "La letra no coincide";
+                } else {
+                    $dni = $tmp_dni;
+                }
+            }
+        }
 
         /**
          * Entre 4 y 12 caracteres
@@ -149,6 +200,9 @@
     }
     ?>
     <form action="" method="post">
+        <input type="text" name="dni" placeholder="DNI">
+        <?php if(isset($err_dni)) echo "<span class='error'>$err_dni</span>"; ?>
+        <br><br>
         <input type="text" name="usuario" placeholder="Usuario">
         <?php if(isset($err_usuario)) echo "<span class='error'>$err_usuario</span>"; ?>
         <br><br>
