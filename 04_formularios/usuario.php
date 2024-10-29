@@ -90,7 +90,60 @@
                 $err_fecha_nacimiento = "El formato de la fecha es incorrecto";
             } else {
                 $fecha_actual = date("Y-m-d");  //  2024 25 10
-                list($anno_actual,$mes_actual,$dia_actual) = explode('-',$fecha_actual);
+                list($anno_actual,$mes_actual,$dia_actual) = 
+                    explode('-',$fecha_actual);
+                list($anno_nacimiento,$mes_nacimiento,$dia_nacimiento) = 
+                    explode('-',$tmp_fecha_nacimiento);
+                
+                if($anno_actual - $anno_nacimiento <= 120 
+                        and $anno_actual - $anno_nacimiento > 0) {
+                    //  la persona tiene menos de 120 años  VALIDA
+                    $fecha_nacimiento = $tmp_fecha_nacimiento;
+                } elseif($anno_actual - $anno_nacimiento > 121) {
+                    //  la persona tiene mas de 120 años    NO VALIDA
+                    $err_fecha_nacimiento = "No puedes tener más de 120 años";
+                    echo "<h1>AAAAA</h1>";
+                } elseif($anno_actual - $anno_nacimiento < 0) {
+                    $err_fecha_nacimiento = "No puedes tener menos de 0 años";
+                    echo "<h1>DDDDD</h1>";
+                } elseif($anno_actual - $anno_nacimiento == 121) {
+                    if($mes_actual - $mes_nacimiento < 0) {
+                        //  la persona aun no ha cumplido 121
+                        $fecha_nacimiento = $tmp_fecha_nacimiento;
+                    } elseif($mes_actual - $mes_nacimiento > 0) {
+                        //  la persona ya ha cumplido 121
+                        $err_fecha_nacimiento = "No puedes tener más de 120 años";
+                        echo "<h1>BBBBB</h1>";
+                    } elseif($mes_actual - $mes_nacimiento == 0) {
+                        if($dia_actual - $dia_nacimiento < 0) {
+                            //  la persona aun no ha cumplido 121
+                            $fecha_nacimiento = $tmp_fecha_nacimiento;
+                        } elseif($dia_actual - $dia_nacimiento >= 0) {
+                            //  la persona ya ha cumplido 121
+                            $err_fecha_nacimiento = "No puedes tener más de 120 años";
+                            echo "<h1>CCCCC</h1>";
+                        }
+                    }
+                } elseif($anno_actual - $anno_nacimiento == 0) {
+                    if($mes_actual - $mes_nacimiento < 0) {
+                        //  la persona aun no nacido
+                        $err_fecha_nacimiento = "La persona aún no ha nacido";
+                        echo "<h1>AAAAA</h1>";
+                    } elseif($mes_actual - $mes_nacimiento < 0) {
+                        //  la persona ya ha nacido
+                        $fecha_nacimiento = $tmp_fecha_nacimiento;
+                    } elseif($mes_actual - $mes_nacimiento == 0) {
+                        if($dia_actual - $dia_nacimiento < 0) {
+                            //  la persona ya ha nacido
+                            $err_fecha_nacimiento = "La persona aún no ha nacido";
+                            echo "<h1>BBBBB</h1>";
+                        } elseif($dia_actual - $dia_nacimiento >= 0) {
+                            //  la persona ya ha cumplido 121
+                            $fecha_nacimiento = $tmp_fecha_nacimiento;
+                        }
+                    }
+                }
+
             }
         }
     }
