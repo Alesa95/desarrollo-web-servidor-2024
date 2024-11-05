@@ -5,15 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Videojuegos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <?php
+        error_reporting( E_ALL );
+        ini_set( "display_errors", 1 );    
+    ?>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-    <!-- Content here -->
+        <?php
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $tmp_titulo = $_POST["titulo"];
+            if(isset($_POST["consola"])) $tmp_consola = $_POST["consola"];
+            else $tmp_consola = "";
+            $tmp_descripcion = $_POST["descripcion"];
+            $tmp_fecha_lanzamiento = $_POST["fecha_lanzamiento"];
+
+            if($tmp_titulo == '') {
+                $err_titulo = "El título es obligatorio";
+            }
+
+            if($tmp_consola == '') {
+                $err_consola = "La consola es obligatoria";
+            }
+
+            if($tmp_fecha_lanzamiento == '') {
+                $err_fecha_lanzamiento = "La fecha de lanzamiento es obligatoria";
+            }
+        }
+        ?>
         <h1>Formulario de videojuegos</h1>
         <form class="col-4" action = "" method="post">
             <div class="mb-3">
                 <label class="form-label">Título</label>
                 <input class="form-control" type="text" name="titulo">
+                <?php if(isset($err_titulo)) echo "<span class='error'>$err_titulo</span>" ?>
             </div>
             <div class="mb-3">
                 <label class="form-label">Consola</label>
