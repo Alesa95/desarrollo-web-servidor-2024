@@ -26,9 +26,18 @@
     </form>
 
     <?php
+    function depurar(string $entrada) : string {
+        $salida = htmlspecialchars($entrada);
+        $salida = trim($salida);
+        $salida = preg_replace('/\s+/', ' ', $salida);
+        return $salida;
+    }
+    ?>
+
+    <?php
     if($_SERVER["REQUEST_METHOD"] == "POST") {
-        $nombre = $_POST["nombre"];
-        $edad = $_POST["edad"];
+        $nombre = depurar($_POST["nombre"]);
+        $edad = depurar($_POST["edad"]);
 
         $resultado = match(true) {
             $edad < 18 => "es menor de edad",
@@ -36,7 +45,9 @@
             $edad >= 65 => "se ha jubilado"
         };
 
-        echo "<h1>$nombre $resultado</h1>";
+        var_dump($nombre);
+
+        echo "<p>$nombre $resultado</p>";
     }
     ?>
 </body>
