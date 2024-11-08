@@ -9,8 +9,14 @@
         error_reporting( E_ALL );
         ini_set( "display_errors", 1 ); 
         
-        require('../conexion.php');
+        require('conexion.php');
     ?>
+    <style>
+        .table-primary {
+            --bs-table-bg: #b0008e;
+            color: white;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -18,8 +24,8 @@
             $sql = "SELECT * FROM animes";
             $resultado = $_conexion -> query($sql);
         ?>
-        <table>
-            <thead>
+        <table class="table table-striped">
+            <thead class="table-primary">
                 <tr>
                     <th>Título</th>
                     <th>Estudio</th>
