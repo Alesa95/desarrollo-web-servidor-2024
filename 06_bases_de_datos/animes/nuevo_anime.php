@@ -14,7 +14,39 @@
 </head>
 <body>
     <div class="container">
-        <form action="" method="post">
+        <?php
+            if($_SERVER["REQUEST_METHOD"] == "POST") {
+                $titulo = $_POST["titulo"];
+                $nombre_estudio = $_POST["nombre_estudio"];
+                $anno_estreno = $_POST["anno_estreno"];
+                $num_temporadas = $_POST["num_temporadas"];
+                // $_FILES, QUE ES UN ARRAY DOBLE!!!
+
+                $direccion_temporal = $_FILES["imagen"]["tmp_name"];
+                $nombre_imagen = $_FILES["imagen"]["name"];
+                move_uploaded_file($direccion_temporal, "imagenes/$nombre_imagen");
+
+                $sql = "INSERT INTO animes 
+                    (titulo, nombre_estudio, anno_estreno, num_temporadas, imagen)
+                    VALUES
+                    ('$titulo', '$nombre_estudio', $anno_estreno, $num_temporadas, 
+                        './imagenes/$nombre_imagen')
+                ";
+
+                $_conexion -> query($sql);
+
+                /**
+                 * INSERT INTO animes
+                 *  (titulo, nombre_estudio, anno_estreno, num_temporadas)
+                 * VALUES
+                 *  ('Doraemon', 'Toei Animation', 1979, 1);
+                 * 
+                 */
+
+                
+            }
+        ?>
+        <form action="" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label">Título</label>
                 <input class="form-control" name="titulo" type="text">
@@ -30,6 +62,10 @@
             <div class="mb-3">
                 <label class="form-label">Número temporadas</label>
                 <input class="form-control" name="num_temporadas" type="text">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Imagen</label>
+                <input class="form-control" name="imagen" type="file">
             </div>
             <div class="mb-3">
                 <input class="btn btn-primary" type="submit" value="Crear">
