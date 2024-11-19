@@ -24,6 +24,7 @@
             $sql = "SELECT * FROM animes";
             $resultado = $_conexion -> query($sql);
         ?>
+        <a href="nuevo_anime.php">Nuevo anime</a>
         <table class="table table-striped">
             <thead class="table-primary">
                 <tr>
