@@ -20,11 +20,12 @@
 </head>
 <body>
     <div class="container">
+        <h1>Listado de animes</h1>
         <?php
             $sql = "SELECT * FROM animes";
             $resultado = $_conexion -> query($sql);
         ?>
-        <a href="nuevo_anime.php">Nuevo anime</a>
+        <a class="btn btn-secondary" href="nuevo_anime.php">Nuevo anime</a><br><br>
         <table class="table table-striped">
             <thead class="table-primary">
                 <tr>
@@ -32,6 +33,7 @@
                     <th>Estudio</th>
                     <th>Año</th>
                     <th>Número de temporadas</th>
+                    <th>Imagen</th>
                 </tr>
             </thead>
             <tbody>
@@ -43,13 +45,11 @@
                         echo "<td>" . $fila["nombre_estudio"] . "</td>";
                         echo "<td>" . $fila["anno_estreno"] . "</td>";
                         echo "<td>" . $fila["num_temporadas"] . "</td>";
-                        echo "<td>";
                         ?>
                         <td>
-                            <img src="<?php echo $fila["imagen"] ?>">
+                            <img width="50" heigth="80" src="<?php echo $fila["imagen"] ?>">
                         </td>
                         <?php
-                        echo "</td>";
                         echo "</tr>";
                     }
                 ?>
