@@ -20,7 +20,7 @@
     <style>
         .table-primary {
             --bs-table-bg: #b0008e;
-            color: white;
+            --bs-table-color: white;
         }
     </style>
 </head>
@@ -32,9 +32,25 @@
         <?php
             if($_SERVER["REQUEST_METHOD"] == "POST") {
                 $id_anime = $_POST["id_anime"];
-                //echo "<h1>$id_anime</h1>";
+                /*
                 $sql = "DELETE FROM animes WHERE id_anime = '$id_anime'";
                 $_conexion -> query($sql);
+                */
+
+                /**
+                 * 1. Preparación (prepare)
+                 * 2. Enlazado (binding)
+                 * 3. Ejecución (execute)
+                 */
+
+                # 1. Preparación (Definimos la estructura de la sentencia)
+                $sql = $_conexion -> prepare("DELETE FROM animes WHERE id_anime = ?");
+
+                # 2. Enlazado (Vinculamos las interrogaciones con variables y tipos)
+                $sql -> bind_param("i", $id_anime);
+
+                # 3. Ejecución
+                $sql -> execute();
             }
 
             $sql = "SELECT * FROM animes";

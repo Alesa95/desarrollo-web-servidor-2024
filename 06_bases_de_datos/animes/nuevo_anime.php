@@ -19,8 +19,6 @@
             $resultado = $_conexion -> query($sql);
             $estudios = [];
 
-            //var_dump($resultado);
-
             while($fila = $resultado -> fetch_assoc()) {
                 array_push($estudios, $fila["nombre_estudio"]);
             }
@@ -37,6 +35,7 @@
                 $nombre_imagen = $_FILES["imagen"]["name"];
                 move_uploaded_file($direccion_temporal, "imagenes/$nombre_imagen");
 
+                /*
                 $sql = "INSERT INTO animes 
                     (titulo, nombre_estudio, anno_estreno, num_temporadas, imagen)
                     VALUES
@@ -45,6 +44,25 @@
                 ";
 
                 $_conexion -> query($sql);
+                */
+                $imagen = "./imagenes/$nombre_imagen";
+
+                # 1. Prepare
+                $sql = $_conexion -> prepare("INSERT INTO animes 
+                    (titulo, nombre_estudio, anno_estreno, num_temporadas, imagen)
+                    VALUES (?,?,?,?,?)");
+                
+                # 2. Binding
+                $sql -> bind_param("ssiis",
+                    $titulo,
+                    $nombre_estudio,
+                    $anno_estreno,
+                    $num_temporadas,
+                    $imagen
+                );
+
+                # 3. Execute
+                $sql -> execute();
 
                 /**
                  * INSERT INTO animes
@@ -57,7 +75,7 @@
                 
             }
         ?>
-        <form action="" method="post" enctype="multipart/form-data">
+        <form class="col-12 col-sm-4" action="" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label">Título</label>
                 <input class="form-control" name="titulo" type="text">
