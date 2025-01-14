@@ -25,7 +25,7 @@
             echo json_encode(["mensaje" => "Petición no válida"]);
     }
 
-    function manejarGet($_conexion) {
+    function manejarGet($_conexion) { 
         $sql = "SELECT * FROM estudios";
         $stmt = $_conexion -> prepare($sql);
         $stmt -> execute();
@@ -54,6 +54,15 @@
     }
 
     function manejarDelete($_conexion, $entrada) {
-        echo json_encode(["metodo" => "delete"]);
+        $sql = "DELETE FROM estudios WHERE nombre_estudio = :nombre_estudio";
+        $stmt = $_conexion -> prepare($sql);
+        $stmt -> execute([
+            "nombre_estudio" => $entrada["nombre_estudio"]
+        ]); 
+        if($stmt) {
+            echo json_encode(["mensaje" => "el estudio se ha borrado"]);
+        } else {
+            echo json_encode(["mensaje" => "error al borrar el estudio"]);
+        }
     }
 ?>
