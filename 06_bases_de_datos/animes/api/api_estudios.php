@@ -50,7 +50,21 @@
     }
 
     function manejarPut($_conexion, $entrada) {
-        echo json_encode(["metodo" => "put"]);
+        $sql = "UPDATE estudios SET
+            ciudad = :ciudad,
+            anno_fundacion = :anno_fundacion
+            WHERE nombre_estudio = :nombre_estudio";
+        $stmt = $_conexion -> prepare($sql);
+        $stmt -> execute([
+            "ciudad" => $entrada["ciudad"],
+            "anno_fundacion" => $entrada["anno_fundacion"],
+            "nombre_estudio" => $entrada["nombre_estudio"]
+        ]);
+        if($stmt) {
+            echo json_encode(["mensaje" => "el estudio se ha modificado"]);
+        } else {
+            echo json_encode(["mensaje" => "error al modificar el estudio"]);
+        }
     }
 
     function manejarDelete($_conexion, $entrada) {
