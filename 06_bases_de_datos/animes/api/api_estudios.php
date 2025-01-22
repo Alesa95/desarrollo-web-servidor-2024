@@ -25,10 +25,18 @@
             echo json_encode(["mensaje" => "Petición no válida"]);
     }
 
-    function manejarGet($_conexion) { 
-        $sql = "SELECT * FROM estudios";
-        $stmt = $_conexion -> prepare($sql);
-        $stmt -> execute();
+    function manejarGet($_conexion) {
+        if(isset($_GET["ciudad"])) {
+            $sql = "SELECT * FROM estudios WHERE ciudad = :ciudad";
+            $stmt = $_conexion -> prepare($sql);
+            $stmt -> execute([
+                "ciudad" => $_GET["ciudad"]
+            ]);
+        } else {
+            $sql = "SELECT * FROM estudios";
+            $stmt = $_conexion -> prepare($sql);
+            $stmt -> execute();
+        }
         $resultado = $stmt -> fetchAll(PDO::FETCH_ASSOC);
         echo json_encode($resultado);
     }
