@@ -10,8 +10,17 @@
     ?>
 </head>
 <body>
+    <form action="" method="get">
+        <label>Ciudad: </label>
+        <input type="text" name="ciudad">
+        <input type="submit" value="Buscar">
+    </form>
     <?php
         $url = "http://localhost/Ejercicios/06_bases_de_datos/animes/api/api_estudios.php";
+        if(!empty($_GET["ciudad"])) {
+            $ciudad = $_GET["ciudad"];
+            $url = $url . "?ciudad=$ciudad";
+        }
         $curl = curl_init(); 
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -19,8 +28,25 @@
         curl_close($curl);
 
         $estudios = json_decode($respuesta, true);
-
-        print_r($estudios);
     ?>
+    <table>
+        <thead>
+            <tr>
+                <th>Estudio</th>
+                <th>Ciudad</th>
+                <th>Año de fundación</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            foreach($estudios as $estudio) { ?>
+                <tr>
+                    <td><?php echo $estudio["nombre_estudio"] ?></td>
+                    <td><?php echo $estudio["ciudad"] ?></td>
+                    <td><?php echo $estudio["anno_fundacion"] ?></td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
 </body>
 </html>
