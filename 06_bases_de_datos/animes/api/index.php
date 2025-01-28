@@ -21,7 +21,7 @@
             $ciudad = $_GET["ciudad"];
             $url = $url . "?ciudad=$ciudad";
         }
-        $curl = curl_init(); 
+        $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         $respuesta = curl_exec($curl);
