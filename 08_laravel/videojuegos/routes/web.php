@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ConsoleController;
+use App\Http\Controllers\VideogameController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,8 @@ use App\Http\Controllers\ConsoleController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/videojuegos', [VideogameController::class, 'index']);
+
 Route::get('/consolas', [ConsoleController::class, 'index']);
 
 Route::get('/', function () {
