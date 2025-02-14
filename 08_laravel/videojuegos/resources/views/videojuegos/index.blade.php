@@ -8,5 +8,24 @@
 </head>
 <body>
     <h1>Index de videojuegos</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Videojuego</th>
+                <th>PEGI</th>
+                <th>Género</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($videojuegos as $videojuego)
+            <!-- aaaa --> 
+                <tr>
+                    <td>{{ $videojuego[0] }}</td>
+                    <td>{{ $videojuego[1] }}</td>
+                    <td>{{ $videojuego[2] }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 </body>
 </html>
